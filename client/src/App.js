@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 
+import { getPosts } from './actions/posts';
 import pigeon from './images/pigeon.jpeg';
 import Posts from './components/Posts/Posts';
 import Form from './components/Form/Form';
+import useStyles from './styles';
 
 const App = () => {
+    const classes = useStyles();
+    
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getPosts());
+    }, [dispatch]);
+    
+    console.log("app");
     return (
         <Container maxidth="lg">
-            <AppBar position="static" color="inherit">
-                <Typography variant='h2' align="center">Pigeon Journal</Typography>
-                <img src={pigeon} alt="memories" height="300" />
+            <AppBar className={classes.appBar} position="static" color="inherit">
+                <Typography className={classes.heading} variant='h2' align="center">Pigeon Journal</Typography>
+                <img className={classes.image} src={pigeon} alt="memories" width="200" height="200" />
             </AppBar>
             <Grow in>
                 <Container>
